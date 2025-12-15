@@ -212,10 +212,10 @@ Starts the server
 
 🔄 **How I’d Improve This for Production**
 
-Replace mock download with real audio streaming
-Use Azure SDK streaming instead of stub
-Add authentication & rate limiting
-Add observability (logs, metrics)
-Separate realtime service into its own microservice
+1. Replace mock download with real audio streaming 
+2. Use Azure SDK streaming instead of stub  
+3. Add authentication & rate limiting  
+4. Add observability (logs, metrics)  
+5. Separate realtime service into its own microservice
 
 **Thanks for reviewing this project** 🙌
