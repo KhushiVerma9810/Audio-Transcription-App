@@ -1,27 +1,18 @@
-<think>
-First, the user has provided a detailed README for their project, and they want me to correct its formatting, make it attractive, and add project setup instructions.
+Hey! 👋 This is a simple and clean audio transcription service built with Node.js, Express, MongoDB, and Socket.IO. The project demonstrates key concepts in REST API design, realtime streaming (mocked), Azure Speech-to-Text integration (with fallback), clean architecture, and scalability thinking—without over-engineering.
 
+## Features
 
-## Reviewing user request  
-- The user shared a detailed README for their project and asked for help improving it.  
-- The goal is to correct formatting, enhance visual appeal, and include project setup instructions.
-</think># Audio Transcription Service 🎙️
+- Accepts an audio URL and mocks audio download.
+- Transcribes audio using mocked data or Azure Speech SDK.
+- Saves transcription history in MongoDB.
+- Supports realtime transcription streaming via WebSockets.
+- Exposes APIs to fetch recent transcriptions.
 
-Hey there! 👋 Welcome to my simple and clean audio transcription service built with Node.js, Express, MongoDB, and Socket.IO. This project demonstrates REST API design, realtime streaming (mocked), Azure Speech-to-Text integration (with fallback), clean architecture, and scalability thinking—without over-engineering.
+## Tech Stack
 
-## 🌟 What This Project Does
-
-- **Accepts an audio URL** and mocks audio download.
-- **Transcribes audio** using mocked data or Azure Speech SDK.
-- **Saves transcription history** in MongoDB.
-- **Supports realtime transcription streaming** via WebSockets.
-- **Exposes APIs** to fetch recent transcriptions.
-
-## 🛠️ Tech Stack
-
-### ⚙️ Backend
+### Backend
 - **Node.js** – Scalable server-side runtime.
-- **TypeScript** – Type safety and better DX.
+- **TypeScript** – Type safety and improved developer experience.
 - **Express.js** – Lightweight web framework for REST APIs.
 - **MongoDB** – NoSQL database for transcription data.
 - **Mongoose** – ODM for schema modeling.
@@ -31,7 +22,7 @@ Hey there! 👋 Welcome to my simple and clean audio transcription service built
 - **Jest & Supertest** – API testing.
 - **dotenv** – Environment variable management.
 
-### 🌐 Frontend
+### Frontend
 - **React** – Component-based UI.
 - **TypeScript** – Strong typing.
 - **Axios** – HTTP client.
@@ -39,7 +30,7 @@ Hey there! 👋 Welcome to my simple and clean audio transcription service built
 - **React Router** – Client-side routing.
 - **Socket.IO Client** – Realtime streaming.
 
-## 🧠 How It Works (High Level)
+## How It Works
 
 ### REST APIs
 - `POST /transcription` → Mock transcription.
@@ -53,20 +44,20 @@ Hey there! 👋 Welcome to my simple and clean audio transcription service built
 - On "end-stream", server saves data and sends "transcription-final".
 - Simulates real speech-to-text streaming.
 
-## ✅ Assumptions Made
+## Assumptions
 - Audio download is mocked (no real media processing).
 - Azure Speech SDK may not always be available.
 - Transcription text is mocked unless Azure key exists.
 - Authentication is out of scope.
 - Focus on architecture, not UI complexity.
 
-## 🧪 Error Handling
+## Error Handling
 - **Zod** for request validation.
 - Centralized error middleware.
 - Async errors via `asyncHandler`.
 - Azure calls with retry + timeout.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 src/
@@ -81,88 +72,97 @@ tests/               # Jest & Supertest tests
 app.ts / server.ts   # Entry points
 ```
 
-## 🚀 Project Setup
+## Setup Instructions
 
-Follow these steps to get the project running locally. Make sure you have Node.js (v16+), npm, and MongoDB installed.
+Follow these steps to set up and run the project locally. Ensure you have Node.js (v16+), npm, and MongoDB installed.
 
 ### Prerequisites
-- **Node.js** (v16 or higher)
-- **npm** or **yarn**
-- **MongoDB** (local or cloud instance, e.g., MongoDB Atlas)
-- **Azure Speech SDK key** (optional for real transcription; otherwise, mocked)
+- Node.js (v16 or higher)
+- npm or yarn
+- MongoDB (local or cloud, e.g., MongoDB Atlas)
+- Azure Speech SDK key (optional for real transcription; otherwise, mocked)
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/audio-transcription-service.git
-cd audio-transcription-service
+git clone https://github.com/KhushiVerma9810/Audio-Transcription-App.git
+cd Audio-Transcription-App
 ```
 
 ### 2. Install Dependencies
 #### Backend
 ```bash
-cd backend  # Assuming backend is in a subfolder; adjust if monolithic
+cd backend  # Adjust if monolithic
 npm install
+npm run dev
 ```
 
 #### Frontend
 ```bash
-cd frontend  # Assuming frontend is in a subfolder
+cd frontend
 npm install
+npm start
 ```
 
 ### 3. Environment Variables
-Create a `.env` file in the backend root with:
+Create a `.env` file in the backend root:
 ```
 MONGODB_URI=mongodb://localhost:27017/transcription-db
 AZURE_SPEECH_KEY=your-azure-key-here  # Optional
 AZURE_SPEECH_REGION=your-region  # Optional
-PORT=3000
+PORT=4000
 ```
 
 ### 4. Set Up MongoDB
 - Start MongoDB locally or connect to a cloud instance.
-- The app will auto-connect via Mongoose.
+- The app auto-connects via Mongoose.
 
 ### 5. Run the Application
 #### Backend
 ```bash
-npm run dev  # Or npm start for production
+npm run dev
 ```
-- Server runs on `http://localhost:3000`.
+- Server runs on `http://localhost:4000`.
 
 #### Frontend
 ```bash
 npm start
 ```
-- Frontend runs on `http://localhost:3001` (or as configured).
+- Frontend runs on `http://localhost:3000
 
 ### 6. Testing
 - Run tests: `npm test`
-- API tests use Jest and Supertest.
+- Uses Jest and Supertest for API testing.
 
 ### 7. Usage
 - Open the frontend in your browser.
 - Upload an audio URL and start transcription.
-- Use Postman for API testing (e.g., `POST /transcription`).
+- Use tools like Postman for API testing (e.g., `POST /transcription`).
 
-## 📊 MongoDB Indexing Notes
-For 100M+ records, add this index for fast date-range queries:
+## Database Optimization
+
+### MongoDB Indexing Notes
+For handling 100M+ records efficiently, add the following index to optimize date-range queries:
 ```javascript
 db.transcriptions.createIndex({ createdAt: -1 })
+
+The API frequently queries transcriptions from the last 30 days
+An index on createdAt allows MongoDB to filter and sort efficiently
+Ensures consistent performance even with 100M+ records
 ```
-- Prevents full scans and optimizes `find({ createdAt: { $gte: since } }).sort({ createdAt: -1 })`.
+- query used :`find({ createdAt: { $gte: since } }).sort({ createdAt: -1 })`.
 
-## 🔄 Scalability & Performance
-For 10k+ concurrent requests:
-- **Caching**: Redis for recent transcriptions.
-- **Queues**: BullMQ/RabbitMQ for transcription jobs.
-- **Containerization**: Docker + Kubernetes for autoscaling.
+## Scalability & Performance Considerations
 
-## 🔧 How I’d Improve for Production
-1. Real audio streaming instead of mocks.
-2. Full Azure SDK streaming.
-3. Authentication & rate limiting.
-4. Observability (logs, metrics).
-5. Microservice for realtime features.
+To handle 10k+ concurrent requests:
+- **Caching**: Implement Redis to cache recent transcriptions and reduce MongoDB load.
+- **Queues**: Use BullMQ or RabbitMQ to offload transcription jobs and prevent API blocking.
+- **Containerization**: Deploy with Docker and Kubernetes for horizontal scaling of APIs and sockets.
 
-Thanks for checking out this project! 🙌 Feel free to contribute or reach out. If you have questions, open an issue.
+## Production Improvements
+1. Replace mock download with real audio streaming.
+2. Implement full Azure SDK streaming.
+3. Add authentication and rate limiting.
+4. Integrate observability (logs, metrics).
+5. Separate realtime service into a microservice.
+
+Thank you for reviewing this project!
