@@ -19,5 +19,5 @@ export async function postTranscription(req: Request, res: Response) {
 
 export async function getTranscriptions(req: Request, res: Response) {
   const list = await getTranscriptionsLast30Days();
-  return res.json({ data: list });
+  return res.json({ transcriptions: list });
 }

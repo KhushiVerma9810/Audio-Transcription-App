@@ -7,7 +7,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<TranscriptionDashboard />} />
-        <Route path="/realtime" element={<RealtimeTranscription />} />
+        <Route path="/realtime-transcription" element={<RealtimeTranscription />} />
       </Routes>
     </BrowserRouter>
   );
