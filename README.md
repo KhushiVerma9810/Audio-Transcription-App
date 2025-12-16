@@ -131,7 +131,8 @@ npm run dev
 ```bash
 npm start
 ```
-- Frontend runs on `http://localhost:3000
+- Frontend runs on http://localhost:3000
+- webscket test route http://localhost:3000/realtime-transcription
 
 ### 6. Testing
 - Run tests: `npm test`
