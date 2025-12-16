@@ -1,5 +1,9 @@
 Hey! 👋 This is a simple and clean audio transcription service built with Node.js, Express, MongoDB, and Socket.IO. The project demonstrates key concepts in REST API design, realtime streaming (mocked), Azure Speech-to-Text integration (with fallback), clean architecture, and scalability thinking—without over-engineering.
 
+## Live Demo
+🚀 Try it out live!
+Visit the deployed application at: https://audio-transcription-app-w6go.onrender.com
+
 ## Features
 
 - Accepts an audio URL and mocks audio download.
@@ -106,10 +110,10 @@ npm start
 ### 3. Environment Variables
 Create a `.env` file in the backend root:
 ```
-MONGODB_URI=mongodb://localhost:27017/transcription-db
-AZURE_SPEECH_KEY=your-azure-key-here  # Optional
-AZURE_SPEECH_REGION=your-region  # Optional
-PORT=4000
+MONGODB_URI= mongodb://localhost:27017/transcription-db
+AZURE_SPEECH_KEY= azure-key-here  # Optional
+AZURE_SPEECH_REGION= region  # Optional
+PORT= 4000
 ```
 
 ### 4. Set Up MongoDB
@@ -132,6 +136,8 @@ npm start
 ### 6. Testing
 - Run tests: `npm test`
 - Uses Jest and Supertest for API testing.
+- I added a basic controller test to validate request flow. 
+- For production, I’d extend coverage for services and edge cases.
 
 ### 7. Usage
 - Open the frontend in your browser.
